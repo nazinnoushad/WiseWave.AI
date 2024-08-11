@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiseWave AI</title>
+    <link rel="icon" type="image/png" href="WiseWave AI.png"> <!-- Favicon link -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Deep gradient background */
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 700px;
+            height: 80%;
+            text-align: center;
+            background: #ffffff; /* Clean white background */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Soft shadow for modern look */
+            animation: zoomIn 1s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .app-name {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .button {
+            position: relative;
+            width: 220px;
+            padding: 15px;
+            font-size: 1.2rem;
+            color: #ffffff;
+            background-color: #6200ea; /* Vibrant purple background */
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for buttons */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: calc(100% + 10px);
+            height: calc(100% + 10px);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.2); /* Subtle outer shadow */
+            animation: moveBall 3s linear infinite;
+            background: transparent; /* Transparent background to show button text */
+        }
+
+        @keyframes moveBall {
+            0% {
+                box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5); /* Ball at start */
+            }
+            25% {
+                box-shadow: calc(100% - 4px) 0 0 4px rgba(255, 255, 255, 0.5); /* Ball moves to right */
+            }
+            50% {
+                box-shadow: calc(100% - 4px) calc(100% - 4px) 0 4px rgba(255, 255, 255, 0.5); /* Ball at bottom */
+            }
+            75% {
+                box-shadow: 0 calc(100% - 4px) 0 4px rgba(255, 255, 255, 0.5); /* Ball moves to left */
+            }
+            100% {
+                box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.5); /* Ball returns to start */
+            }
+        }
+
+        .button:hover {
+            transform: scale(1.05);
+            background-color: #3700b3; /* Darker purple on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+
+        .iframe-container {
+            display: none; /* Initially hidden */
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #ffffff; /* White background */
+            border-radius: 20px; /* Rounded corners */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* No border around iframe */
+            border-radius: 20px; /* Rounded corners */
+        }
+
+        .back-button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            color: #ffffff;
+            background-color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            color: #ffffff; /* White text color on hover */
+        }
+
+        .back-button::before {
+            content: '←';
+            margin-right: 8px;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 600px) {
+            .app-name {
+                font-size: 2rem;
+            }
+            .button {
+                width: calc(100% - 20px);
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="home">
+        <div class="app-name">WiseWave AI</div>
+        <div class="button-row">
+            <button class="button" onclick="showPage('chatbot')">Chatbot</button>
+            <button class="button" onclick="showPage('image-generator')">Image Generator</button>
+            <button class="button" onclick="showPage('web-generator')">Web Generator</button>
+            <button class="button" onclick="showPage('qr-code-generator')">QR Code Generator</button>
+            <button class="button" onclick="showPage('translator')">Translator</button>
+        </div>
+    </div>
+
+    <div class="iframe-container" id="iframe-container">
+        <a href="javascript:void(0);" class="back-button" onclick="showHome()">Back</a>
+        <iframe id="iframe" src="" title="Content"></iframe>
+    </div>
+
+    <script>
+        function showPage(page) {
+            document.getElementById('home').style.display = 'none';
+            let iframeContainer = document.getElementById('iframe-container');
+            let iframe = document.getElementById('iframe');
+
+            iframeContainer.style.display = 'block';
+            iframe.src = getUrlForPage(page);
+        }
+
+        function showHome() {
+            document.getElementById('home').style.display = 'flex';
+            document.getElementById('iframe-container').style.display = 'none';
+        }
+
+        function getUrlForPage(page) {
+            switch (page) {
+                case 'chatbot':
+                    return 'https://domo-static.github.io/WiseWave-AI/';
+                case 'image-generator':
+                    return 'https://domo-static.github.io/image-ai/';
+                case 'web-generator':
+                    return 'https://domo-static.github.io/web-generator/';
+                case 'qr-code-generator':
+                    return 'https://domo-static.github.io/QR-code-generator/';
+                case 'translator':
+                    return 'https://domo-static.github.io/translator/';
+                default:
+                    return '';
+            }
+        }
+    </script>
+</body>
+</html>
